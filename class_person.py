@@ -1,4 +1,4 @@
-import class_Fbank as fb, class_members as cm, class_org as co
+import class_Fbank as fb, class_members as cm, class_org as co, parameters as param
 import numpy as np
 import gc, random
 
@@ -7,11 +7,11 @@ class Person(cm.Members):
     
     def __init__(self, name):
          cm.Members.__init__(self,"Pers", name)
-         self.disp_inc = int((np.random.wald(2.82, 3) - 1) * 1000)   #stochasitcally assign disposable income         
-         self.rand_work = np.random.normal(0,1)     #
-         self.rand_buy_tks = np.random.normal(0,1)
-         self.rand_sell_tks = np.random.normal(0,1)  
-         self.get_tokens()
+         self.disp_inc = param.disp_inc
+         self.rand_work = param.rand_work
+         self.rand_buy_tks = param.rand_buy_tks
+         self.rand_sell_tks = param.rand_sell_tks
+         #self.get_tokens()
         
     def get_tokens(self):
          if (self.disp_inc < 1000 and self.rand_work > .5):		#later break this out with other decision parameters i.e. awareness
@@ -35,6 +35,7 @@ class Person(cm.Members):
 
     def buy_tokens(self, numtoks):
         fb.sell_tokens(numtoks, self)
+        self.dollars_out = (numtoks * param.token_val)
         self.update_accounting()
         
 
@@ -62,9 +63,15 @@ class Person(cm.Members):
         self.update_accounting()      
         #print ("Person " + self.name + " has $" + str(self.disp_inc) + " and is working for " + org.name + " for " + str(tks) + " tokens")
 
-     
+    
+    def get_dollars(self):  # members (people) get dollars by selling tokens
+        if (self.tokens_held > 0 and np.random.normal(0,1) > param.token_selling_threshold):      # adjust to make more realistic
+            self.update_accounting()
+            self.sell_tokens(min(self.tokens_held, max(0,int(self.tokens_held * np.random.normal(0,1)))))
+            
     def sell_tokens(self, numtoks):
-        print (self.name,"selling") 
+        #print (self.name,"selling") 
         self.tokens_sold += numtoks
+        self.dollars_in += (numtoks * param.tok_exh_val)
+        fb.buy_tokens(numtoks)
         self.update_accounting()
-     

@@ -2,12 +2,9 @@ import parameters as param
 import gc
 import class_business as cb, class_org as co, class_person as cp
 import numpy as np
-#from scipy import stats
-#from itertools import count
 
 
-#tok_gen_amt = 0.1   #fraction of tkns gen per tkns purchased
-token_val = 1		#dollars:tokens exchange value
+
 tokens_gen = 0      #from tok_gen_amt during bank transactions
 tokens_bought = 0       #tokens taken in from buying back
 tokens_sold = 0
@@ -16,13 +13,11 @@ tokens_don_in = 0
 tokens_don_out = 0
 tokens_held = 0 #tokens_held = (tokens_bought + tokens_gen - tokens_don - toksconv2dols)
 tokens_net = 0  #tokens_net = (tokens_bought + tokens_gen + (dollars_conv * tok_exh_val) - tokens_sold - tokens_don)
-#to
 dollars_sold = 0
 dollars_bought = param.starting_cash
 dollars_don_in = param.starting_cash # [num_donations, total amount]
 dollars_don_out = 0 # [num_donations, total amount]
 dollars_held = param.starting_cash
-tok_exh_val = .9
 frac_reserve = param.frac_reserve   #minimum amount of net dollars + tokens kept by bank (as ratio to tokens in circulation)
 active_members = 0
 members_joined = 0
@@ -46,12 +41,12 @@ def sell_tokens(numtoks, member):
     global tokens_gen  
     if (tokens_held > numtoks):
         member.tokens_bought += int(numtoks)
-        dollars_bought += (numtoks * token_val)
+        dollars_bought += (numtoks * param.token_val)
         tokens_sold += numtoks  
     else:        
         tokens_gen += numtoks
         tokens_sold += numtoks
-        dollars_bought += (numtoks * token_val)
+        dollars_bought += (numtoks * param.token_val)
         member.tokens_bought += int(numtoks)
     update_accounting()  
     #tokens_gen += float(numtoks)* tok_gen_amt
@@ -60,7 +55,7 @@ def buy_tokens(tokens):
     global tokens_bought
     global dollars_sold    
     tokens_bought += tokens
-    dollars_sold += int(tok_exh_val * tokens)
+    dollars_sold += int(param.tok_exh_val * tokens)
     update_accounting()
  
 def donate_tokens(tokens,member):   
@@ -108,7 +103,7 @@ def rec_req(tokens, member):    #receive request from org for donations (in toke
     if (pot_don > 0):
         donate_tokens(tokens, member)
     else:
-        req_donation(tokens * tok_exh_val)
+        req_donation(tokens * param.tok_exh_val)
     
 def eval_req(tokens):       # fix so donations are split among requesters for each time step(i.e. year), or incorporate a selection method   
     global req_don    

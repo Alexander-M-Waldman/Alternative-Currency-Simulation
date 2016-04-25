@@ -18,3 +18,4 @@ class Members(object):
         
     def update_accounting(self):
         self.tokens_held = self.tokens_bought + self.tokens_worked + self.tokens_don_in - self.tokens_sold - self.tokens_don_out
+        self.disp_inc += (self.dollars_in - self.dollars_out)

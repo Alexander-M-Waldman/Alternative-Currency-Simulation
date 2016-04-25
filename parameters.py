@@ -19,8 +19,8 @@ rand_buy_tks = np.random.normal(0,1)
 rand_sell_tks = np.random.normal(0,1)
 
 #orgs
-list_of_orgnames = ["Bymyside", "NKFC", "circle_thrift", "NKCDC", "Adaire", "Hackett"]
+list_of_orgnames = ["o1", "o2", "o3", "o4", "o5", "o6"]
 
 #businesses
-list_of_business_names = ["Mycopolitan", "Soup Kitchen", "Philly Bagel", "Rocket Cat", "PBC", "Rowhouse Spirits", "Heffe", "Record Exchange"]
+list_of_business_names = ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8"]
 

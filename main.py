@@ -29,9 +29,11 @@ def update_fbank():
     fb.update_accounting()
     print "dollars held = " + str(fb.dollars_held)
     print "tokens held = " + str(fb.tokens_held)
-    print "tkns in circulation = " + str(fb.tokens_circ)    
+    print "tkns in circulation = " + str(fb.tokens_circ) 
+    print "tkns sold = " + str(fb.tokens_sold)
     print "generated tokens = " + str(fb.tokens_gen)  
     print "tokens donated out = " + str(fb.tokens_don_out)
+    print "tokens bought (dollars sold) by bank = " + str(fb.dollars_sold)
     print "dollars donated in = " + str(fb.dollars_don_in)
 
 #########################################################
@@ -55,6 +57,7 @@ while (year < sim_years):
             obj.rand_buy_tks = np.random.normal(0,1)
             obj.rand_sell_tks = np.random.normal(0,1)  
             obj.get_tokens()
+            obj.get_dollars()
 #           print obj.name + " has " + str(obj.tokens_held) + " tokens"
             
     for obj in gc.get_objects():
@@ -106,4 +109,5 @@ while (year < sim_years):
     plt.tight_layout()
     plt.show()
     
-plt.show(np.random.normal(30,20))
+update_fbank()
+

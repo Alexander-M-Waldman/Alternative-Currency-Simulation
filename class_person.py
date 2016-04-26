@@ -65,7 +65,7 @@ class Person(cm.Members):
 
     
     def get_dollars(self):  # members (people) get dollars by selling tokens
-        if (self.tokens_held > 0 and np.random.normal(0,1) > param.token_selling_threshold):      # adjust to make more realistic
+        if (self.disp_inc < 1000 and self.tokens_held > 0 and np.random.normal(0,1) > param.token_selling_threshold):      # adjust to make more realistic
             self.update_accounting()
             self.sell_tokens(min(self.tokens_held, max(0,int(self.tokens_held * np.random.normal(0,1)))))
             

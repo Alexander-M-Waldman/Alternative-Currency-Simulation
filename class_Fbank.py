@@ -123,7 +123,7 @@ def eval_req(tokens):       # fix so donations are split among requesters for ea
 
 def eval_freserve():
     update_accounting()
-    pot_toks_gen = (dollars_held / frac_reserve) - tokens_held - tokens_circ
+    pot_toks_gen = (dollars_held / frac_reserve) - (tokens_held + tokens_circ)
     #print "pot_toks_gen = " + str(pot_toks_gen)
     if (pot_toks_gen < 0):
         req_donation(abs(pot_toks_gen))

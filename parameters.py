@@ -4,13 +4,13 @@ import numpy as np
 
 #bank
 starting_cash = 2000
-frac_reserve = .7
+frac_reserve = .5
 don_generosity = .1
 tok_exh_val = .9
 token_val = 1		#dollars:tokens exchange value
 
 #people
-numpers = 200   #number of people to start with
+numpers = 500   #number of people to start with
 list_of_persnames = range(1,numpers)
 token_selling_threshold = 0.7
 disp_inc = int((np.random.wald(2.82, 3) - 1) * 1000)   #stochasitcally assign disposable income         

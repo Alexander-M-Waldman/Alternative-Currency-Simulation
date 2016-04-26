@@ -43,7 +43,7 @@ def update_fbank():
 ##########################################################
 
 year = 0
-sim_years = 10
+sim_years = 20
 
 while (year < sim_years):
     year += 1
